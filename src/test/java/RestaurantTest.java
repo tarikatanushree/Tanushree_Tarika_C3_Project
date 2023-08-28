@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import java.util.List;
+import java.util.ArrayList;
 
 import java.time.LocalTime;
 
@@ -73,9 +75,24 @@ class RestaurantTest {
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     //<<<<<<<<<<<<<<<<<<<<<<<ORDER COST>>>>>>>>>>>>>>>>>>>>>>>
     @Test
-    public void calculateTotalCost_should_return_0_if_no_item_is_selected() throws itemNotFoundException {
+    public void calculateTotalCost_should_return_0_if_no_item_is_add() throws itemNotFoundException {
         restaurant.removeFromMenu("Sweet corn soup");
         restaurant.removeFromMenu("Vegetable lasagne");
         assertTrue(restaurant.calculateTotalItemCost(restaurant.getMenu())==0);
     }
+    @Test
+    public void calculateTotalCost_should_return_price_of_the_item_if_only_1_item_is_added() throws itemNotFoundException {
+        restaurant.removeFromMenu("Vegetable lasagne");
+        assertTrue(restaurant.calculateTotalItemCost(restaurant.getMenu())==((restaurant.getMenu().get(0).getPrice())));
+    }
+    @Test
+    public void calculateTotalCost_should_return_sum_of_price_of_each_item_added() throws itemNotFoundException {
+    int actualPrice=0;
+    List<Item> menu = restaurant.getMenu();
+     for(Item item : menu) {
+         actualPrice = actualPrice + item.getPrice();
+     }
+        assertEquals(restaurant.calculateTotalItemCost(restaurant.getMenu()), actualPrice);
+    }
+    //<<<<<<<<<<<<<<<<<<<<<<<ORDER COST>>>>>>>>>>>>>>>>>>>>>>>
 }
