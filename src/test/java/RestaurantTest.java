@@ -71,4 +71,11 @@ class RestaurantTest {
                 () -> restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //<<<<<<<<<<<<<<<<<<<<<<<ORDER COST>>>>>>>>>>>>>>>>>>>>>>>
+    @Test
+    public void calculateTotalCost_should_return_0_if_no_item_is_selected() throws itemNotFoundException {
+        restaurant.removeFromMenu("Sweet corn soup");
+        restaurant.removeFromMenu("Vegetable lasagne");
+        assertTrue(restaurant.calculateTotalItemCost(restaurant.getMenu())==0);
+    }
 }
